@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[19]:
 
 
 import streamlit as st
@@ -17,26 +17,26 @@ import shap
 import matplotlib.pyplot as plt
 
 
-# In[3]:
+# In[21]:
 
 
 model = joblib.load('lgb.pkl')
 
 
-# In[5]:
+# In[23]:
 
 
 X_test = pd.read_csv('X_test_HTN.csv')
 
 
-# In[7]:
+# In[25]:
 
 
 #定义特征名称，对应数据集中的列名
 feature_names = ["YiDC", "PDC", "Age", "WHtR", "CO", "BMI", "Smokingstatus","Socialparticipation","Sleepquality","Pain","Hyperlipidemia", "Hyperuricemia","Diabetes","CKD"]
 
 
-# In[11]:
+# In[27]:
 
 
 #Streamlit 用户界面
@@ -56,7 +56,7 @@ Diabetes = st.selectbox("Diabetes:", options=[0, 1])
 CKD = st.selectbox("CKD:", options=[0, 1])
 
 
-# In[15]:
+# In[29]:
 
 
 # 实现输入数据并进行预测
