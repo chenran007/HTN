@@ -84,9 +84,12 @@ if st.button("Predict"):
     st.write(f"**Predicted Class:** {predicted_class} (1: Disease, 0: No Disease)")
     st.write(f"**Prediction Probabilities:** {predicted_proba}")
 
+    # 修改点
+    explainer_shap.expected_value = [explainer_shap.expected_value]
+
     # 根据预测结果生成建议
     # 如果预测类别为 1（高风险）
-    if float(predicted_proba[1])>explainer_shap.expected_value[1]:
+    if predicted_class==1: # float(predicted_proba[1])>explainer_shap.expected_value[1]:  # 修改点，不能这样判断 float(predicted_proba[1])>explainer_shap.expected_value[1]
         probability = predicted_proba[1] * 100
         advice = (
             f"According to our model, you have a high risk of hypertension. "
