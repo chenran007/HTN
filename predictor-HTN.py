@@ -38,29 +38,35 @@ feature_names = ["YiDC", "PDC", "Age", "WHtR", "CO", "BMI", "Smokingstatus","Soc
 
 # In[27]:
 
+# 构建字段映射
+BOOL = {"Yes":1, "No":0}
+AGE = {"60-69":0, "70-79":1, "≥80":2}
+BMIV = {"18.5≤BMI<24":0, "<18.5":1, "24≤BMI<28":2, "≥28":3}
 
 #Streamlit 用户界面
 st.title("Hypertension Risk Prediction")
-YiDC = st.selectbox("Yin-deficiency constitution (YiDC):", options=[0, 1])
-PDC = st.selectbox("Phlegm-dampness constitution (PDC):", options=[0, 1])
-Age = st.selectbox("Age:", options=[0, 1,2])
-WHtR = st.selectbox("Waist-to-height ratio (WHtR):", options=[0, 1])
-CO = st.selectbox("Central obesity (CO):", options=[0, 1])
-BMI = st.selectbox("Body Mass Index (BMI):", options=[0,1,2,3])
-Smokingstatus = st.selectbox("Smokingstatus:", options=[0, 1])
-Socialparticipation = st.selectbox("Socialparticipation:", options=[0, 1])
-Pain = st.selectbox("Pain:", options=[0, 1])
-Hyperlipidemia = st.selectbox("Hyperlipidemia:", options=[0, 1])
-Hyperuricemia = st.selectbox("Hyperuricemia:", options=[0, 1])
-Diabetes = st.selectbox("Diabetes:", options=[0, 1])
-CKD = st.selectbox("CKD:", options=[0, 1])
+YiDC = BOOL[st.selectbox("Yin-deficiency constitution (YiDC):", options=BOOL)]
+PDC = BOOL[st.selectbox("Phlegm-dampness constitution (PDC):", options=BOOL)]
+Age = AGE[st.selectbox("Age:", options=AGE)]
+WHtR = BOOL[st.selectbox("Waist-to-height ratio (WHtR):", options=BOOL)]
+CO = BOOL[st.selectbox("Central obesity (CO):", options=BOOL)]
+BMI = BMIV[st.selectbox("Body Mass Index (BMI):", options=BMIV)]
+Smokingstatus = BOOL[st.selectbox("Smokingstatus:", options=BOOL)]
+Socialparticipation = BOOL[st.selectbox("Socialparticipation:", options=BOOL)]
+Sleepquality = BOOL[st.selectbox("Sleepquality:", options=BOOL)]  # 修改点: 之前缺失了
+Pain = BOOL[st.selectbox("Pain:", options=BOOL)]
+Hyperlipidemia = BOOL[st.selectbox("Hyperlipidemia:", options=BOOL)]
+Hyperuricemia = BOOL[st.selectbox("Hyperuricemia:", options=BOOL)]
+Diabetes = BOOL[st.selectbox("Diabetes:", options=BOOL)]
+CKD = BOOL[st.selectbox("CKD:", options=BOOL)]
 
 
 # In[29]:
 
 
 # 实现输入数据并进行预测
-feature_values = [YiDC, PDC, Age, WHtR, CO, BMI, Smokingstatus, Socialparticipation, Pain, Hyperlipidemia, Hyperuricemia, Diabetes, CKD]  # 将用户输入的特征值存入列表
+feature_values = [YiDC, PDC, Age, WHtR, CO, BMI, Smokingstatus, Socialparticipation, Sleepquality, Pain, Hyperlipidemia, Hyperuricemia, Diabetes, CKD]  # 将用户输入的特征值存入列表   # 修改点: Sleepquality
+
 features = np.array([feature_values])  # 将特征转换为 NumPy 数组，适用于模型输入
 # 当用户点击 "Predict" 按钮时执行以下代码
 if st.button("Predict"):
@@ -104,7 +110,7 @@ if st.button("Predict"):
     # 解释类别 1（患病）的 SHAP 值
     # 特征值数据
     # 使用 Matplotlib 绘图
-    shap.force_plot(explainer_shap.expected_value[1], shap_values[:, :, 1], pd.DataFrame([feature_values], columns=feature_names), matplotlib=True)
+    shap.force_plot(explainer_shap.expected_value[1], shap_values[1][0], pd.DataFrame([feature_values], columns=feature_names), matplotlib=True)  # 修改点: shap_values[1][0]
     # 期望值（基线值）
     # 解释类别 0（未患病）的 SHAP 值
     # 特征值数据
