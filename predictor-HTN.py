@@ -42,6 +42,7 @@ feature_names = ["YiDC", "PDC", "Age", "WHtR", "CO", "BMI", "Smokingstatus","Soc
 BOOL = {"Yes":1, "No":0}
 AGE = {"60-69":0, "70-79":1, "≥80":2}
 BMIV = {"18.5≤BMI<24":0, "<18.5":1, "24≤BMI<28":2, "≥28":3}
+SLEEP = {"Poor":1, "Good":0}
 
 #Streamlit 用户界面
 st.title("Hypertension Risk Prediction")
@@ -53,7 +54,7 @@ CO = BOOL[st.selectbox("Central obesity (CO):", options=BOOL)]
 BMI = BMIV[st.selectbox("Body Mass Index (BMI):", options=BMIV)]
 Smokingstatus = BOOL[st.selectbox("Smokingstatus:", options=BOOL)]
 Socialparticipation = BOOL[st.selectbox("Socialparticipation:", options=BOOL)]
-Sleepquality = BOOL[st.selectbox("Sleepquality:", options=BOOL)]  # 修改点: 之前缺失了
+Sleepquality = SLEEP[st.selectbox("Sleepquality:", options=SLEEP)]  # 修改点: 之前缺失了
 Pain = BOOL[st.selectbox("Pain:", options=BOOL)]
 Hyperlipidemia = BOOL[st.selectbox("Hyperlipidemia:", options=BOOL)]
 Hyperuricemia = BOOL[st.selectbox("Hyperuricemia:", options=BOOL)]
