@@ -43,13 +43,14 @@ BOOL = {"Yes":1, "No":0}
 AGE = {"60-69":0, "70-79":1, "≥80":2}
 BMIV = {"18.5≤BMI<24":0, "<18.5":1, "24≤BMI<28":2, "≥28":3}
 SLEEP = {"Poor":1, "Good":0}
+WAIST={"Abnormal":1, "Normal":0}
 
 #Streamlit 用户界面
 st.title("Hypertension Risk Prediction")
 YiDC = BOOL[st.selectbox("Yin-deficiency constitution (YiDC):", options=BOOL)]
 PDC = BOOL[st.selectbox("Phlegm-dampness constitution (PDC):", options=BOOL)]
 Age = AGE[st.selectbox("Age:", options=AGE)]
-WHtR = BOOL[st.selectbox("Waist-to-height ratio (WHtR):", options=BOOL)]
+WHtR = WAIST[st.selectbox("Waist-to-height ratio (WHtR):", options=WAIST)]
 CO = BOOL[st.selectbox("Central obesity (CO):", options=BOOL)]
 BMI = BMIV[st.selectbox("Body Mass Index (BMI):", options=BMIV)]
 Smokingstatus = BOOL[st.selectbox("Smokingstatus:", options=BOOL)]
